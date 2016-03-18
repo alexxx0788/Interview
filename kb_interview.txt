@@ -1,0 +1,215 @@
+KB
+
+--- C# & .NET
+------------------------------------------------------------------------------------------------------------------------------------------
+*** Reference and value types. Value type stored in stack, reference type in managed memory heap. Value type is int,char,struct, double. Reference type all clases like string, class, delegate.
+ 
+*** Encapsulation - principle of OOP. The main idea is hiding details of implementation. In terms of C#, should be private field and public properties should be used
+for accessing. Additional logic should be used for validation.
+
+*** Inheritance - principle of OOP. The main idea is to extend logic of basic class. In C# multi inheritance of class is forbidden.
+Allowed to use multi inheritance of interfaces.
+
+*** Polymorphism - principle of OOP. The main idea is to use method from from basic class with override implementation in inherited class. Key words virtual and override.
+virtual: indicates that a function may be overriden by an inheritor
+override: overrides the functionality of a virtual function in a base class, providing different functionality.
+new: hides the original function (which doesn't have to be virtual), providing different functionality. This should only be used where it is absolutely necessary.
+
+*** GAC - it is a folder within Windows folder. So the GAC must be a place to store code libraries so they're accessible to all applications running on the machine.
+global - applies to the entire machine
+assembly - what .NET calls its code-libraries (DLLs)
+cache - a place to store things for faster/common access 
+
+*** GC - in .NET there are two types of value value type and reference type. In case of value type after finishing the method value type will be automatically clean from the stack.
+In case of memory heap objects will also have a place in stack but just for references to a place of memory in a heap. So, when method is finished stack will be empty but place in heap will
+have a data and for clearing this data .NET created GC. It will detected that this place doesn't have a reference and will clean it. 
+There 3 generation of GC (0,1,2). For 0 gen. - new objects which have never been detected by GC, for 1 - objects that GC detencted once, for 2 - objects that were detected 1 and more times.
+GC will be executed when the program is running out of memory and in some time.
+
+*** ref & out & param
+* out - passing value by value. it means that we are going to return more then one value from the method and it means that the this value is initialized.
+declaration - static void GetData(int x, int y, out int area, out int perim)
+execution - GetData(x, 15, out area, out perimetr);
+* ref - passing value by reference. Difference that in out we are passing a copy, but in case of ref we are passing value by reference.
+declaration - static void AdditionRef(ref int x, int y)
+execution - AdditionRef(ref a, b);
+In case of big objects better to use ref, because we don't need to copy big objects and spend an efforts for that.
+
+*** var & dynamic
+var -  is implicit type. The type of variable will be determined from assigned value by compiler in a runtime.
+dynamic - is a dynamic type that that indentifing during execution via DLR. Dynamic type can change the type during the program execution.
+		dynamic int1 = 1;
+		dynamic int2 = 2;
+		dynamic result = int1 + int2;
+		The result will be 3.
+So, you can declare int + string as a dynamic type. It shouldn't compile, but it will. And during execution it will fail.
+
+*** ExpandoObject
+In DLR (ydnamic lang runtime) we have a namespace System.Dynamic and class ExpandoObject. It can allow to create an object similar to th eobjects in JS.
+So we can create an object and create a fields of this object w/o declaration before.
+dynamic viewbag = new System.Dynamic.ExpandoObject();
+viewbag.Name = "Tom";
+viewbag.Age = 46;
+*** DynamicObject - it works in a similar way as an ExpandoObject. It has diffrent virtual method that need to be override. It needs for preparation method for managing members of the class.
+You can create your our logic for creating fields with additional validation.
+
+*** Boxing and unboxing
+boxing is converting value type to reference type.
+unboxing is oposite operation.
+Boxing and UnBoxing are computationally expensive processes.
+
+*** Generics
+System.Collections.ArrayList array = new System.Collections.ArrayList();
+array.Add(x);
+x can be int, string, class. All items has object types.
+Instead we can use List<T>, it is a generic type. So it will be one class with one logic but can be done for different types.
+You can provide your regulations for class T
+class Bank<T> where T : Client, Account;;;class Bank<T> where T : struct;;;class Bank<T> where T : class;;;class Bank<T> where T : new()
+It is possible to have a generic method in not generic class.
+
+*** Extetion method - it is a specific method to extend one class that can be deplared in another file and second class.Method should be static.
+Example public static void ExtMethod(this Class1 s, int methodparam1,string methodparam2)
+
+*** Exception handling
+try, catch, finaly. We should handle exceptions from the high level to the low. FileNotFoundException then Exception.
+For throwing an exception is keyword throw.
+In C# 6.0 there are filters of exceptions
+try{int result = x / y;}
+catch(Exception ex) when (y==0){}
+catch(Exception ex) {}
+
+*** Delegate - is a pointer to method.
+delegate int Operation(int x, int y);
+Operation del = new Operation(Add); 
+int result = del.Invoke(4,5);
+private static int Add(int x, int y) { return x+y; }
+
+*** Event - mechanism for callback.Can be more then one subscriber. public event AccountStateHandler Added;  account.Added += Show_Message;
+
+*** Anonymous methods - method w/o declaration and for event can be used only body of that method.
+
+*** Lambda expressions - is a simple declaration of anonymous methods. It has a special syntax (parameters)=>expression
+message GetMessage = () => { Console.WriteLine("some text"); };
+
+*** Indexator - they allow to index obkects and use them as an array. It works in a similar way as getter/setter. An example can be class Book and class Library.
+
+*** IEnumerable & IEnumerator - if you want to loop your collection in foreach you should use them. Inherit your class from IEnumerable
+IEnumerator IEnumerable.GetEnumerator(){return books.GetEnumerator();} And you can use it in foreach.
+
+*** yeald -is a named enumerator or iterator. As an example can be used next construction IEnumerator IEnumerable.GetEnumerator(){for (int i = 0; i < books.Length; i++){yield return books[i];}}.
+Each time during execution yeald is storing current position of item, and next time will be executed from the stored position. 
+
+*** Serialization - is a process of transforming object to the byte flow. Desirialization is an oposite process. You should mark your class as [Serializable], if you want to exclude some fields
+use [NonSerialized]. It can be serilization to binary,SOAP,XML,JSON format.BinaryFormatter,SoapFormatter,XmlSerializer.
+BinaryFormatter formatter = new BinaryFormatter();   ->  formatter.Serialize(fs, person);
+
+*** string and StringBuilder - when we are changing the string type .NET creates new string in memory. StringBuilder is a dynamic string.
+
+*** Finalizers - GC is a very good mechanism to work with memory cleaning. But sometimes some objects can use unmanaged resourses NetWork Connections or descriptors. So, GC doesn't know how to manage such cases
+For that purpose we need to use finilizers. It is like a descructor in C++,  ~Person(). When GC is going to clean an object he will call finilizers first. Finalize method is by default in each class.
+IDisposible - it has an interface with one method Dispose. It needs if we want to raise cleaning immediately in code we can use a construction using (Person p = new Person()){}
+Disposible pattern - define a boolian variable  private bool IsDisposed = false;  and then override method Dispose also pass boolian valiable to the method. 
+If a variable on a class level is false and variable on method level is true then free managed resourses and then call base.Dispose(disposing)
+
+*** Reflection - is an ability of a probram to work with metadata of the class in runtime. So, via this we can obtain an info about fields methods, properties.
+You can load and run a method from assembly in runtime, even private method. But it has a negative side it decrease a performance.
+
+*** Multithreading - is an ability work with several threads and execute different tasks independently. In .NET we have class Thread which is using for creating a Threads.
+Each thread has his own prioriy from enumeration ThreadPriority it needs for CLR. For creation Thread w/o parameters is using class ThreadStart, syntax  Thread myThread = new Thread(new ThreadStart(Count));myThread.Start();
+If you want to create a thread with parameters you should use ParameterizedThreadStart works in a similar way with the one difference that 1. you have a method with params. and 2. you should pass the parameter to Start main.
+But thread start is type unsafe, means that we can pass over any parameter. For this purpose is better to create a class and pass params to constructor and call method w/o params.
+
+*** Sharing resourses beetwen threads - if several threads are using shared variable we need  to use lock keyword for synctonizing. So, just put within the block lock block some code that you want to be executed within one thread.
+lock (locker){ //some code ...}. Create an object just for locking it will provide a monopoly usage of code within lock. On a low level it is a use of System.Threading.Monitor.
+Same method can be rewrite  Monitor.Enter(locker);try{ //some methods;}finally{Monitor.Exit(locker);}
+
+*** Mutex - it is also an option for synctonizing. Should be created static Mutex mutexObj = new Mutex() and then use methods from this class WaitOne() and ReleaseMutex().
+WaitOne - will stop thread execution untill will be mutex object will get then when mutex doesn't need will be executed method ReleaseMutex. The best side of mutex is that we can use it not only within one thread
+but also between processes. As an example will be creation an app. which can be run once.
+
+*** Semafor - is also an option for synchronizing. It can restrict an access for a particular amount of objects. For implementation you should declare a semafor within the class.
+static Semaphore sem = new Semaphore(3, 3), first parameter amount of objects that can use semaphore and second one is max amount of objects.It has 2 methods sem.WaitOne() and sem.Release().
+
+*** TPL - from .NET 4.0 is recommended to use TPL instead of manuall creation a threads. The main item is class Task from System.Threading.Tasks.
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+--- Entity Framework
+------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------------------------------
+--- Patterns
+------------------------------------------------------------------------------------------------------------------------------------------
+*** What is that?
+*** Anty-patterns?
+*** Behaivoral, Structural, Generating patterms?	
+*** 
+------------------------------------------------------------------------------------------------------------------------------------------
+--- Solid, IOC, DI
+------------------------------------------------------------------------------------------------------------------------------------------
+*** SOLID princeples
+*** DI containers
+*** Ninject
+------------------------------------------------------------------------------------------------------------------------------------------
+--- Unit tests
+------------------------------------------------------------------------------------------------------------------------------------------
+*** Mock & Stabs
+*** Moq frameworks
+------------------------------------------------------------------------------------------------------------------------------------------
+---	ASP.NET WEBFORMS
+------------------------------------------------------------------------------------------------------------------------------------------
+*** Page lifecycle.
+*** Global asax
+*** Handlers and Modules
+*** ViewState how to save object?
+*** Caching
+*** Postback
+------------------------------------------------------------------------------------------------------------------------------------------
+---	ASP.NET MVC
+------------------------------------------------------------------------------------------------------------------------------------------
+*** Page life cycle
+*** MVC & MVP
+*** ViewData, ViewBag *** dynamic, TempData
+*** Filters
+*** Validation
+*** MVC async function
+------------------------------------------------------------------------------------------------------------------------------------------
+---	ASP.NET WebApi
+------------------------------------------------------------------------------------------------------------------------------------------
+*** What is it?
+*** REST
+*** GET, PUT, POST, DELETE
+*** 
+------------------------------------------------------------------------------------------------------------------------------------------
+--- WCF
+*** WCF service.
+------------------------------------------------------------------------------------------------------------------------------------------
+*** ABC?
+*** Difference with WebService
+------------------------------------------------------------------------------------------------------------------------------------------
+--- SQL
+------------------------------------------------------------------------------------------------------------------------------------------
+*** indexes clustered and non-clusterd
+*** syntacsys insert, update, select, delete
+*** Difference clustered index with primary key?
+------------------------------------------------------------------------------------------------------------------------------------------
+--- JavaScript & jQuery
+------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------
+--- Html & XML & CSS
+------------------------------------------------------------------------------------------------------------------------------------------
+*** Html 5.
+*** CSS2 vs CSS3.
+*** 
+------------------------------------------------------------------------------------------------------------------------------------------
+--- Source Controls
+------------------------------------------------------------------------------------------------------------------------------------------
+*** GIT commans
+*** Difference GIT with SVN
+------------------------------------------------------------------------------------------------------------------------------------------
+--- Sitecore
+------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------
+---	General
+------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------
