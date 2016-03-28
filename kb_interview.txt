@@ -2,7 +2,7 @@ KB
 
 --- C# & .NET
 ------------------------------------------------------------------------------------------------------------------------------------------
-*** Reference and value types. Value type stored in stack, reference type in managed memory heap. Value type is int,char,struct, double. Reference type all clases like string, class, delegate.
+*** Reference and value types. Value type stored in stack, reference type in managed memory heap. Value type is int,char,struct, double. Reference type all classes like string, class, delegate.
  
 *** Encapsulation - principle of OOP. The main idea is hiding details of implementation. In terms of C#, should be private field and public properties should be used
 for accessing. Additional logic should be used for validation.
@@ -11,7 +11,7 @@ for accessing. Additional logic should be used for validation.
 Allowed to use multi inheritance of interfaces.
 
 *** Polymorphism - principle of OOP. The main idea is to use method from from basic class with override implementation in inherited class. Key words virtual and override.
-virtual: indicates that a function may be overriden by an inheritor
+virtual: indicates that a function may be overridden by an inheritor
 override: overrides the functionality of a virtual function in a base class, providing different functionality.
 new: hides the original function (which doesn't have to be virtual), providing different functionality. This should only be used where it is absolutely necessary.
 
@@ -23,13 +23,13 @@ cache - a place to store things for faster/common access
 *** GC - in .NET there are two types of value value type and reference type. In case of value type after finishing the method value type will be automatically clean from the stack.
 In case of memory heap objects will also have a place in stack but just for references to a place of memory in a heap. So, when method is finished stack will be empty but place in heap will
 have a data and for clearing this data .NET created GC. It will detected that this place doesn't have a reference and will clean it. 
-There 3 generation of GC (0,1,2). For 0 gen. - new objects which have never been detected by GC, for 1 - objects that GC detencted once, for 2 - objects that were detected 1 and more times.
+There 3 generation of GC (0,1,2). For 0 gen. - new objects which have never been detected by GC, for 1 - objects that GC detected once, for 2 - objects that were detected 1 and more times.
 GC will be executed when the program is running out of memory and in some time.
 
 *** ref & out & param
 * out - passing value by value. it means that we are going to return more then one value from the method and it means that the this value is initialized.
 declaration - static void GetData(int x, int y, out int area, out int perim)
-execution - GetData(x, 15, out area, out perimetr);
+execution - GetData(x, 15, out area, out parameter);
 * ref - passing value by reference. Difference that in out we are passing a copy, but in case of ref we are passing value by reference.
 declaration - static void AdditionRef(ref int x, int y)
 execution - AdditionRef(ref a, b);
@@ -37,7 +37,7 @@ In case of big objects better to use ref, because we don't need to copy big obje
 
 *** var & dynamic
 var -  is implicit type. The type of variable will be determined from assigned value by compiler in a runtime.
-dynamic - is a dynamic type that that indentifing during execution via DLR. Dynamic type can change the type during the program execution.
+dynamic - is a dynamic type that that identifying during execution via DLR. Dynamic type can change the type during the program execution.
 		dynamic int1 = 1;
 		dynamic int2 = 2;
 		dynamic result = int1 + int2;
@@ -45,12 +45,12 @@ dynamic - is a dynamic type that that indentifing during execution via DLR. Dyna
 So, you can declare int + string as a dynamic type. It shouldn't compile, but it will. And during execution it will fail.
 
 *** ExpandoObject
-In DLR (ydnamic lang runtime) we have a namespace System.Dynamic and class ExpandoObject. It can allow to create an object similar to th eobjects in JS.
+In DLR (dynamic lang runtime) we have a namespace System.Dynamic and class ExpandoObject. It can allow to create an object similar to th eobjects in JS.
 So we can create an object and create a fields of this object w/o declaration before.
 dynamic viewbag = new System.Dynamic.ExpandoObject();
 viewbag.Name = "Tom";
 viewbag.Age = 46;
-*** DynamicObject - it works in a similar way as an ExpandoObject. It has diffrent virtual method that need to be override. It needs for preparation method for managing members of the class.
+*** DynamicObject - it works in a similar way as an ExpandoObject. It has different virtual method that need to be override. It needs for preparation method for managing members of the class.
 You can create your our logic for creating fields with additional validation.
 
 *** Boxing and unboxing
@@ -67,11 +67,11 @@ You can provide your regulations for class T
 class Bank<T> where T : Client, Account;;;class Bank<T> where T : struct;;;class Bank<T> where T : class;;;class Bank<T> where T : new()
 It is possible to have a generic method in not generic class.
 
-*** Extetion method - it is a specific method to extend one class that can be deplared in another file and second class.Method should be static.
+*** Extension method - it is a specific method to extend one class that can be declared in another file and second class.Method should be static.
 Example public static void ExtMethod(this Class1 s, int methodparam1,string methodparam2)
 
 *** Exception handling
-try, catch, finaly. We should handle exceptions from the high level to the low. FileNotFoundException then Exception.
+try, catch, finally. We should handle exceptions from the high level to the low. FileNotFoundException then Exception.
 For throwing an exception is keyword throw.
 In C# 6.0 there are filters of exceptions
 try{int result = x / y;}
@@ -91,7 +91,7 @@ private static int Add(int x, int y) { return x+y; }
 *** Lambda expressions - is a simple declaration of anonymous methods. It has a special syntax (parameters)=>expression
 message GetMessage = () => { Console.WriteLine("some text"); };
 
-*** Indexator - they allow to index obkects and use them as an array. It works in a similar way as getter/setter. An example can be class Book and class Library.
+*** Indexator - they allow to index objects and use them as an array. It works in a similar way as getter/setter. An example can be class Book and class Library.
 
 *** IEnumerable & IEnumerator - if you want to loop your collection in foreach you should use them. Inherit your class from IEnumerable
 IEnumerator IEnumerable.GetEnumerator(){return books.GetEnumerator();} And you can use it in foreach.
@@ -99,32 +99,32 @@ IEnumerator IEnumerable.GetEnumerator(){return books.GetEnumerator();} And you c
 *** yeald -is a named enumerator or iterator. As an example can be used next construction IEnumerator IEnumerable.GetEnumerator(){for (int i = 0; i < books.Length; i++){yield return books[i];}}.
 Each time during execution yeald is storing current position of item, and next time will be executed from the stored position. 
 
-*** Serialization - is a process of transforming object to the byte flow. Desirialization is an oposite process. You should mark your class as [Serializable], if you want to exclude some fields
-use [NonSerialized]. It can be serilization to binary,SOAP,XML,JSON format.BinaryFormatter,SoapFormatter,XmlSerializer.
+*** Serialization - is a process of transforming object to the byte flow. Desirialization is an opposite process. You should mark your class as [Serializable], if you want to exclude some fields
+use [NonSerialized]. It can be serialization to binary,SOAP,XML,JSON format.BinaryFormatter,SoapFormatter,XmlSerializer.
 BinaryFormatter formatter = new BinaryFormatter();   ->  formatter.Serialize(fs, person);
 
 *** string and StringBuilder - when we are changing the string type .NET creates new string in memory. StringBuilder is a dynamic string.
 
 *** Finalizers - GC is a very good mechanism to work with memory cleaning. But sometimes some objects can use unmanaged resourses NetWork Connections or descriptors. So, GC doesn't know how to manage such cases
-For that purpose we need to use finilizers. It is like a descructor in C++,  ~Person(). When GC is going to clean an object he will call finilizers first. Finalize method is by default in each class.
+For that purpose we need to use finilizers. It is like a destructor in C++,  ~Person(). When GC is going to clean an object he will call finilizers first. Finalize method is by default in each class.
 IDisposible - it has an interface with one method Dispose. It needs if we want to raise cleaning immediately in code we can use a construction using (Person p = new Person()){}
-Disposible pattern - define a boolian variable  private bool IsDisposed = false;  and then override method Dispose also pass boolian valiable to the method. 
-If a variable on a class level is false and variable on method level is true then free managed resourses and then call base.Dispose(disposing)
+Disposible pattern - define a boolian variable  private bool IsDisposed = false;  and then override method Dispose also pass boolian variable to the method. 
+If a variable on a class level is false and variable on method level is true then free managed resources and then call base.Dispose(disposing)
 
-*** Reflection - is an ability of a probram to work with metadata of the class in runtime. So, via this we can obtain an info about fields methods, properties.
+*** Reflection - is an ability of a program to work with metadata of the class in runtime. So, via this we can obtain an info about fields methods, properties.
 You can load and run a method from assembly in runtime, even private method. But it has a negative side it decrease a performance.
 
 *** Multithreading - is an ability work with several threads and execute different tasks independently. In .NET we have class Thread which is using for creating a Threads.
-Each thread has his own prioriy from enumeration ThreadPriority it needs for CLR. For creation Thread w/o parameters is using class ThreadStart, syntax  Thread myThread = new Thread(new ThreadStart(Count));myThread.Start();
+Each thread has his own priority from enumeration ThreadPriority it needs for CLR. For creation Thread w/o parameters is using class ThreadStart, syntax  Thread myThread = new Thread(new ThreadStart(Count));myThread.Start();
 If you want to create a thread with parameters you should use ParameterizedThreadStart works in a similar way with the one difference that 1. you have a method with params. and 2. you should pass the parameter to Start main.
 But thread start is type unsafe, means that we can pass over any parameter. For this purpose is better to create a class and pass params to constructor and call method w/o params.
 
-*** Sharing resourses beetwen threads - if several threads are using shared variable we need  to use lock keyword for synctonizing. So, just put within the block lock block some code that you want to be executed within one thread.
+*** Sharing resourses beetwen threads - if several threads are using shared variable we need  to use lock keyword for synchronizing. So, just put within the block lock block some code that you want to be executed within one thread.
 lock (locker){ //some code ...}. Create an object just for locking it will provide a monopoly usage of code within lock. On a low level it is a use of System.Threading.Monitor.
 Same method can be rewrite  Monitor.Enter(locker);try{ //some methods;}finally{Monitor.Exit(locker);}
 
-*** Mutex - it is also an option for synctonizing. Should be created static Mutex mutexObj = new Mutex() and then use methods from this class WaitOne() and ReleaseMutex().
-WaitOne - will stop thread execution untill will be mutex object will get then when mutex doesn't need will be executed method ReleaseMutex. The best side of mutex is that we can use it not only within one thread
+*** Mutex - it is also an option for synchronizing. Should be created static Mutex mutexObj = new Mutex() and then use methods from this class WaitOne() and ReleaseMutex().
+WaitOne - will stop thread execution until will be mutex object will get then when mutex doesn't need will be executed method ReleaseMutex. The best side of mutex is that we can use it not only within one thread
 but also between processes. As an example will be creation an app. which can be run once.
 
 *** Semafor - is also an option for synchronizing. It can restrict an access for a particular amount of objects. For implementation you should declare a semafor within the class.
@@ -142,12 +142,12 @@ static Semaphore sem = new Semaphore(3, 3), first parameter amount of objects th
 ------------------------------------------------------------------------------------------------------------------------------------------
 *** What is that?
 *** Anty-patterns?
-*** Behaivoral, Structural, Generating patterms?	
+*** Behavioural, Structural, Generating patterns?	
 *** 
 ------------------------------------------------------------------------------------------------------------------------------------------
 --- Solid, IOC, DI
 ------------------------------------------------------------------------------------------------------------------------------------------
-*** SOLID princeples
+*** SOLID principles
 *** DI containers
 *** Ninject
 ------------------------------------------------------------------------------------------------------------------------------------------
