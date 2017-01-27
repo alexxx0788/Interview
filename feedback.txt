@@ -1,0 +1,19 @@
+VA
+**************************************************************
+Extensive feedback after which we can conclude that Olexander is to junior for VA and was not successful on this occasion.
+
+- how to develop a page to be Experience editor friendly
+- what kind of an impact front end can have on the actual development,
+- doesn't know how the indexes work in sitecore, took a bit of time to get there even though he says he worked with Solr, he doesnt know which indexes go where
+- doesn't have experience with Sitecore marketing
+- doesn't have an experience with WFFM
+- the general architecture of Sitecore he doesn't fully understand
+- doesn't know how the data gets into Analytics
+
+Architecture wise he knows really the basic of the basics. 
+He used TDS, might know to find his way around. 
+He is not certified. 
+He mentioned that he would like to be part of the user groups but that the Polish one is bad, when I told him that I was a speaker there then
+he said that it is bad in his city because there isn't one.
+We talked a bit about his projects, overall, he would need a guidance.
+Also, he has never installed or configured Sitecore on any other environment except his local machine.
