@@ -1,4 +1,4 @@
-1. http://metanit.com/sharp/algoritm/
+1. http://metanit.com/sharp/algoritm/ + types of sorting
 2. With regards to 1, update *file
 3. http://metanit.com/sharp/tutorial/ and paraller updating *file
 4. http://metanit.com/sharp/patterns/
