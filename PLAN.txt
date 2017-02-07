@@ -15,5 +15,6 @@
 15.http://metanit.com/web/react/ and update *file
 16.Architecture books from safari books favorite
 
-
 *file - kb_interview.txt
+GREAT LIST OF BOOKS FOR SITECORE DEVELOPERS
+https://sitecorejunkie.com/2015/06/22/a-list-of-books-that-every-sitecore-developer-should-read/
