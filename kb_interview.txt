@@ -1,7 +1,30 @@
 KB
 
---- C# & .NET
-------------------------------------------------------------------------------------------------------------------------------------------
+---Algorithms
+*** Types of algorithms: 
+*contstant - if/else. Simple algorithm w/o loops the fastest
+*logarithmic - binary search
+*linear - simple loop
+*squere - double of loops
+*triple - 3 nested loops
+
+---Data structures---
+***Linked List: looks like a train. A sequens of items, each item hasa refference to next item in a sequence.
+
+***Double Linked List: the same structure as Linked List but with a difference in refferences. Item of that list contains a refferences to Next and Prev items in a sequence.
+
+***Stack - works on a principle Last In Forst Out. Has two methods Push(add new item into steck to vertex) and pop (removes a top item from a stack), Peek returns a peek of a vertex of a stack.
+
+***Queue - works on a principle First In First Out. After adding new element, the item goes to the end of queue and removing an item, removes and item from the top of queue.
+
+***Circled linked list - very similar to a simple linked list with a difference that head has a refference to the tail item
+
+***Circled double linked list - very similar to above data structure with a difference references. head refferences to the tail item and tail has a refference to head.
+
+--- Types of sorting ---
+***Bubble sort
+
+--- C# & .NET---
 *** Reference and value types. Value type stored in stack, reference type in managed memory heap. Value type is int,char,struct, double. Reference type all classes like string, class, delegate.
  
 *** Encapsulation - principle of OOP. The main idea is hiding details of implementation. In terms of C#, should be private field and public properties should be used

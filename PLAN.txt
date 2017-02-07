@@ -1,6 +1,6 @@
-1. http://metanit.com/sharp/algoritm/ + types of sorting
-2. With regards to 1, update *file
-3. http://metanit.com/sharp/tutorial/ and paraller updating *file
+1. http://metanit.com/sharp/algoritm/ and update a * ___DONE___
+2. http://infostart.ru/public/204320/ and update a *file
+3. http://metanit.com/sharp/tutorial/ and update *file
 4. http://metanit.com/sharp/patterns/
 5. SOLID and patterns should go to *file
 6. http://metanit.com/sharp/aspnet5/ and update *file
