@@ -18,3 +18,11 @@
 *file - kb_interview.txt
 GREAT LIST OF BOOKS FOR SITECORE DEVELOPERS
 https://sitecorejunkie.com/2015/06/22/a-list-of-books-that-every-sitecore-developer-should-read/
+
+
+
+
+---------------------------------IRVINE-----------------------------
+1. https://www.google.pl/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=deadlock+C%23&*
+2. http://www.quizful.net/interview/csharp?page=0
+3. https://metanit.com/sharp/interview/
