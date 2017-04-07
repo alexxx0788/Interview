@@ -22,9 +22,43 @@ KB
 ***Circled double linked list - very similar to above data structure with a difference references. head refferences to the tail item and tail has a refference to head.
 
 --- Types of sorting ---
+***Comparable sort
+The easyest algorithm of sorting. Just loop the array and search for the lowest element, then replace it with the first item of non-sorted part of array. If an array is short the algorithm works fine, if an array is large then the algorithm will fail.
+Steps:
+ - find min element in array
+ - replace first element of array with the first element
+ - again find an element and replace second element in array with the found
+ - repeat operation untill the array is sorted
+
 ***Bubble sort
+The most popular algorithm for education. On practice is slow. The idea is light-weight element will be on top and wighty elements will be at the bottom. 
+An algorithm:
+ - Each element of array is comparing with next one and if elem[i]>elem[i+1] the replacement will be  done.
+ - Requires repeat steps 1...n-1 times (where n is a size of array)
+
+***Shaking sort
+Is one of the version of bubble sorting with one difference, bubble sort is moving in one direction from the top to the end. Here we need to sort first from the top to the bottom, then from the bottom to the end.
+On practice it will be one while and within while will be 2 for lops one will go from the bottom to the end and second will go from the top to the bottom.
+
+***Inserting sort
+The idea is to take an element, find a position for an element and insert.
+We have not sorted array, you are movving from the left to the right. Compare each element with previous and if it is less then insert it before
+
+***Shell sorting
+You need to get a size of step.
+Example an array with the size 10
+Just (10 / 2) D=5.
+Then you need to compare elements with a step, 0 => 5, 1=>6,2=>7,3=>8,4=>9.
+If 0 elem is more then 5th, replace those places.
+After sorting groupt with a step 5, then find another step.
+5/2 = 2, then you need to work step=2.
+Sort element 0,2,4,6,8 then sort array indexes 1,3,5,7,9
+Then final step 2/2. D=1 here apply Insert Sort.
+
+***Quick sort
 
 --- C# & .NET---
+******HASH TABLE ****
 *** Reference and value types. Value type stored in stack, reference type in managed memory heap. Value type is int,char,struct, double. Reference type all classes like string, class, delegate.
  
 *** Encapsulation - principle of OOP. The main idea is hiding details of implementation. In terms of C#, should be private field and public properties should be used
