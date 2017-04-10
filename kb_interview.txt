@@ -10,10 +10,12 @@ KB
 
 ---Data structures---
 ***Linked List: looks like a train. A sequens of items, each item hasa refference to next item in a sequence.
+An example of use is a browser history, when a person walks in the Internet it creates a history of pages. When user press the button backspace the previous item is fetched. The implementation of a linked list is a basic for such data structures as a Queue or Stack.
 
 ***Double Linked List: the same structure as Linked List but with a difference in refferences. Item of that list contains a refferences to Next and Prev items in a sequence.
+An example is musical player when the user can listem previous song or the next one, also Undo-Redo functionality.
 
-***Stack - works on a principle Last In Forst Out. Has two methods Push(add new item into steck to vertex) and pop (removes a top item from a stack), Peek returns a peek of a vertex of a stack.
+***Stack - works on a principle Last In Forst Out. Has two methods Push(add new item into steck to vertex) and pop (removes a top item from a stack), Peek returns a peek of a vertex of a stack. An example is reverce a word, Undo-Redo functionality.
 
 ***Queue - works on a principle First In First Out. After adding new element, the item goes to the end of queue and removing an item, removes and item from the top of queue.
 
@@ -37,12 +39,14 @@ An algorithm:
  - Requires repeat steps 1...n-1 times (where n is a size of array)
 
 ***Shaking sort
-Is one of the version of bubble sorting with one difference, bubble sort is moving in one direction from the top to the end. Here we need to sort first from the top to the bottom, then from the bottom to the end.
-On practice it will be one while and within while will be 2 for lops one will go from the bottom to the end and second will go from the top to the bottom.
+Is one of the version of bubble sorting with one difference, bubble sort is moving in one direction from the top to the end. Here we need to sort first from the top to the bottom, then from the bottom to the top.
+On practice it will be one while and within while will be 2 for lops one will go from the top to the bottom and second will go from the bottom to the top.
 
 ***Inserting sort
 The idea is to take an element, find a position for an element and insert.
-We have not sorted array, you are movving from the left to the right. Compare each element with previous and if it is less then insert it before
+You unsorted array, take elements 1 and 2 sort them (if needs), then you array initially devided into two arrays.
+Left one is sorted and the right one is unsorted.
+Then, take each element from unsorted array and insert into sorted array depends on the value, every time the left one will a sorted array extended by 1 element untill the right one will be empty.
 
 ***Shell sorting
 You need to get a size of step.
@@ -56,41 +60,148 @@ Sort element 0,2,4,6,8 then sort array indexes 1,3,5,7,9
 Then final step 2/2. D=1 here apply Insert Sort.
 
 ***Quick sort
+You need to choose a pivot(стержень), ussually it is the last element in array.
+Then you need compare each element with the pivot and set all element lower than pivot on the left side and bigger elements on the right side.
+
 
 --- C# & .NET---
-******HASH TABLE ****
-*** Reference and value types. Value type stored in stack, reference type in managed memory heap. Value type is int,char,struct, double. Reference type all classes like string, class, delegate.
- 
-*** Encapsulation - principle of OOP. The main idea is hiding details of implementation. In terms of C#, should be private field and public properties should be used
-for accessing. Additional logic should be used for validation.
+*** types
+bool - true/false
+byte - contains integer 0-255, size 1 byte
+sbyte- range -128 to 127, size 1 byte
+ushort- range 0 to 65535, size 2 bytes (2^16)
+int - range (-1)*(2^31) to 2^31, size 2 bytes, type Int32
+uIint - from 0 to (2^32), size 4 bytes
+long - (-1)*(2^63) to 2^63, size 8 bytes, type Int64
+ulong - 0 to 2^64, size 8bytes
+float - from -3.4*(10^38) to 3.4*(10^38), size 4 bytes, type Single
+double - +/-5*(10^324) to +/-1.7*(10^308), size 8 bytes, type System.Double
+decimal - type System.Decimal range from -7.9*10^28 to 7.9*10^28 / 10^0-28, size 16bytes
+char - one symbol in Unicode, size 2 bytes
+string - a set of chars in Unicode, size is int, so the size of string is int.MaxNumber. 2GB limit in CLR
+object - 4 bytes in x32 and 8bytes in x64
+
+***System architcture
+x86 is an architecture of a processor uses 32bytes
+x64 uses 64bytes
+x86 works with max 4GB of memory
+x64 works with max 16TB of memory
+
+*** Decimal or Double
+Decimal is very big type, you should car when use.
+float -for simple fractional types
+double - for advanced fractional types.
+Decimal is using mostly for advanced calculations in financial 
+
+***Implicit and Explicit conversions
+int a = 5;
+byte b = a (implicit)
+byte c = (byte)a (explicit)
+Sometimes is possible to loose some data.
+Example byte b = 33+600;
+We loose a data because the result is 121.
+
+try
+{
+    int a = 33;
+    int b = 600;
+    byte c = checked((byte)(a + b));
+    Console.WriteLine(c);
+}
+catch (OverflowException ex)
+{
+    Console.WriteLine(ex.Message);
+}
+
+*** C# operations
++,-,*,/,%,++,--
+logical operations:
+-&AND both 1 is 1 example 010 & 101 = 000
+-|OR one or both 1 is 1 example 010 & 101 =111
+-^XOR only one 1 is 1, 11 is 0, 00 is 0. 010^101=111
+-~ inversion 101 = 010
+-<< x<<y. 4<<1 = 8, 100<<1=1000
+->> x>>y. 16>>1=8, 10000>>1=1000
+
+*** Arrays
+An array is a set if values of one type.
+Declaration is int[] nums = new int[4]; 
+If you want to access the 5th element it returns IndexOutOfRangeException. An alternative way of declaration is 
+int[] nums3 = { 1, 2, 3, 5 };
+
+***A set of operations, that returns nothhing (void) called a procedure.
+Unlike procedures, functions return a value.
+
+*** Reference and value types. Value type stored in stack, reference type in managed memory heap. 
+int, char, long... are struct types and it is a value type.
+string, delegates,arrays are classes and it is a refference type
+You have two types of memory locations Stack and Heap.
+Value types are stored in stack, in terms of ref types you store in stack just a pointer of your reference variable to the address in heap.
+
+*** passing by value and by refference
+You are able to pass a paramenter into a method by a value and by a refference.
+1. Value type passing from Main into a method as a parameter. The result is the value will not be changed, because the method have another scope
+2. Refference type passing from Main to a method as a parameter, you are passing a memory address and as a result the value of a ref type will be changed, cause within Main and within the method there are in both cases one memory place.
+
+---ref means that the parameter has a value on it before going into the function. The called function can read and or change the value any time. The parameter goes in, then comes out.In case of refference types passing by refference into a method, it is possible to change the object but not override, in case of ref it is possible to use new object and on the starting point it will be overriden.
+---out means that the parameter has no official value before going into the function. The called function must initialize it. The parameter only goes out.
+
+***Not required parameters
+static int OptionalParam(int x, int y, int z=5, int s=4)
+
+***Named parameters
+static int OptionalParam(int x, int y, int z=5, int s=4)
+OptionalParam(x:2, y:3);
+
+
+
+
+
+
+
+
+
+
+
+
+
+*** Encapsulation - principle of OOP. The main idea is hiding details of implementation. In terms of C#, should be private field and public properties should be used for accessing. Additional logic should be used for validation.
 
 *** Inheritance - principle of OOP. The main idea is to extend logic of basic class. In C# multi inheritance of class is forbidden.
 Allowed to use multi inheritance of interfaces.
 
 *** Polymorphism - principle of OOP. The main idea is to use method from from basic class with override implementation in inherited class. Key words virtual and override.
-virtual: indicates that a function may be overridden by an inheritor
+virtual: indicates that a method may be overridden by an inheritor
 override: overrides the functionality of a virtual function in a base class, providing different functionality.
 new: hides the original function (which doesn't have to be virtual), providing different functionality. This should only be used where it is absolutely necessary.
+public class A
+{
+   public virtual void One();
+   public void Two();
+}
+public class B : A
+{
+   public override void One();
+   public new void Two();
+}
+B b = new B();
+A a = b as A;
+a.One(); // Calls implementation in B
+a.Two(); // Calls implementation in A
+b.One(); // Calls implementation in B
+b.Two(); // Calls implementation in B
 
 *** GAC - it is a folder within Windows folder. So the GAC must be a place to store code libraries so they're accessible to all applications running on the machine.
 global - applies to the entire machine
 assembly - what .NET calls its code-libraries (DLLs)
 cache - a place to store things for faster/common access 
-
+******HASH TABLE ****
 *** GC - in .NET there are two types of value value type and reference type. In case of value type after finishing the method value type will be automatically clean from the stack.
 In case of memory heap objects will also have a place in stack but just for references to a place of memory in a heap. So, when method is finished stack will be empty but place in heap will
 have a data and for clearing this data .NET created GC. It will detected that this place doesn't have a reference and will clean it. 
 There 3 generation of GC (0,1,2). For 0 gen. - new objects which have never been detected by GC, for 1 - objects that GC detected once, for 2 - objects that were detected 1 and more times.
 GC will be executed when the program is running out of memory and in some time.
 
-*** ref & out & param
-* out - passing value by value. it means that we are going to return more then one value from the method and it means that the this value is initialized.
-declaration - static void GetData(int x, int y, out int area, out int perim)
-execution - GetData(x, 15, out area, out parameter);
-* ref - passing value by reference. Difference that in out we are passing a copy, but in case of ref we are passing value by reference.
-declaration - static void AdditionRef(ref int x, int y)
-execution - AdditionRef(ref a, b);
-In case of big objects better to use ref, because we don't need to copy big objects and spend an efforts for that.
 
 *** var & dynamic
 var -  is implicit type. The type of variable will be determined from assigned value by compiler in a runtime.
