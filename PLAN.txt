@@ -18,3 +18,6 @@
 *file - kb_interview.txt
 GREAT LIST OF BOOKS FOR SITECORE DEVELOPERS
 https://sitecorejunkie.com/2015/06/22/a-list-of-books-that-every-sitecore-developer-should-read/
+
+For .NET developers
+https://www.danylkoweb.com/Blog/top-10-books-every-net-developer-should-own-QG
