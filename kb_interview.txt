@@ -68,7 +68,7 @@ Then you need compare each element with the pivot and set all element lower than
 *** types
 bool - true/false
 byte - contains integer 0-255, size 1 byte
-sbyte- range -128 to 127, size 1 byte
+sbyte- range -128 to 127, size 1 bytes
 ushort- range 0 to 65535, size 2 bytes (2^16)
 int - range (-1)*(2^31) to 2^31, size 2 bytes, type Int32
 uIint - from 0 to (2^32), size 4 bytes
@@ -80,6 +80,13 @@ decimal - type System.Decimal range from -7.9*10^28 to 7.9*10^28 / 10^0-28, size
 char - one symbol in Unicode, size 2 bytes
 string - a set of chars in Unicode, size is int, so the size of string is int.MaxNumber. 2GB limit in CLR
 object - 4 bytes in x32 and 8bytes in x64
+
+***Difference between String and string
+String and string are the same, both are from class System.String.
+string is just an allias. it is just a convetion.
+For having a variable you need to use string, for using specific methods like Concat, use String.Concat.
+
+*** string and StringBuilder - when we are changing the string type .NET creates new string in memory. StringBuilder is a dynamic string
 
 ***System architcture
 x86 is an architecture of a processor uses 32bytes
@@ -143,37 +150,76 @@ You are able to pass a paramenter into a method by a value and by a refference.
 1. Value type passing from Main into a method as a parameter. The result is the value will not be changed, because the method have another scope
 2. Refference type passing from Main to a method as a parameter, you are passing a memory address and as a result the value of a ref type will be changed, cause within Main and within the method there are in both cases one memory place.
 
----ref means that the parameter has a value on it before going into the function. The called function can read and or change the value any time. The parameter goes in, then comes out.In case of refference types passing by refference into a method, it is possible to change the object but not override, in case of ref it is possible to use new object and on the starting point it will be overriden.
+---ref means that the parameter has a value on it before going into the function. The called function can read and or change the value any time. The parameter goes in, then comes out.In case of refference types passing by refference into a method, it is possible to change the object but not override, in case of ref it is possible to use new object and on the starting point it will be overriden. When passing struct by ref keyword then it modifies it.
 ---out means that the parameter has no official value before going into the function. The called function must initialize it. The parameter only goes out.
 
-***Not required parameters
+***Not required and named parameters
 static int OptionalParam(int x, int y, int z=5, int s=4)
+OptionalParam(x:2, y:3);-Named parameters
 
-***Named parameters
-static int OptionalParam(int x, int y, int z=5, int s=4)
-OptionalParam(x:2, y:3);
+***Recursion functions
+static int Factorial(int x)
+{
+    if (x == 0)
+    {
+        return 1;
+    }
+    else
+    {
+        return x * Factorial(x - 1);
+    }
+}
 
+***Enum
+Enum is a set of named constants of integer type(byte,int,long,short)
+Possible to pass as a parameter
+static void MathOp(double x, double y, Operation op)
 
+***Struct
+Is a very similar to a class, can have a constructor, but only with a parameters.
+During initialization is possible to call a constructor w/o parameters, it will just initialize all fields by default types values. Struct is a value type, so a memory allocation is a little bit different then in class.
+Struct is better to use for a small data types cause it impacts the performance. When we pass a value type we pass the entire object in stack. In case of class we pass only an address in a memory and it is much faster.
+For a small object that contains several int fields it ok to use a strunc, but for bigger better to use a class.
+If a struct contais a string (refference type), it will also create a copy.
 
+***Exception handling
+try, catch, finally
+When an exception was thrown the CLR is looking for a catch block and if it is not found then it shown unhandled exception. Derived exceptions will be handled at first, then common exception.
+For throwing exception uses keyword throw. For instance when you are going something to check on another service.
+You can throw an exception by your own.
 
+***OOP
+Class is a reference type, can have a constructor with or w/o parameters.
+Partial class is a class whci can be declared in several files.
+public - visible from any place in code
+private - visible only in that place
+protected - visible within the class an for derived clases
+internal - visible only within onle assembly
 
+*Const - can be initialized one time before complicalion
+const double pi=3.14
 
+*readonly fields - very similar to constants, you can't reassign it twice, but it can be initialized also from the contstructor
 
+*properties - provides easy access to class fields, and it is a demonstration of incapsulation principle.
 
-
-
-
-
+*static - methods or fields will be visible for the entire class
+static constructor - constructor works only when call a static property or when create an object.
+static class - class which contains only static properties of static methods 
 
 *** Encapsulation - principle of OOP. The main idea is hiding details of implementation. In terms of C#, should be private field and public properties should be used for accessing. Additional logic should be used for validation.
 
 *** Inheritance - principle of OOP. The main idea is to extend logic of basic class. In C# multi inheritance of class is forbidden.
 Allowed to use multi inheritance of interfaces.
 
+*** sealed keyword, means that the class is hidden for inheritance
+
+*** base keyword is about access to a base construction from a derived class
+
 *** Polymorphism - principle of OOP. The main idea is to use method from from basic class with override implementation in inherited class. Key words virtual and override.
 virtual: indicates that a method may be overridden by an inheritor
 override: overrides the functionality of a virtual function in a base class, providing different functionality.
-new: hides the original function (which doesn't have to be virtual), providing different functionality. This should only be used where it is absolutely necessary.
+new: to hide the functionality of base class
 public class A
 {
    public virtual void One();
@@ -190,6 +236,24 @@ a.One(); // Calls implementation in B
 a.Two(); // Calls implementation in A
 b.One(); // Calls implementation in B
 b.Two(); // Calls implementation in B
+
+***base, is possible to use for accessing the base implementation of a method
+
+***sealed, is possible to use to forbid the overriding
+
+***abstract class- it is very similat to regular class but with a difference that you can't create an instance.
+it provides a base functionality for an inheritors
+
+***abstract methods, they have a signature but don't have a body, and derived class should implement the body according to the signature, using override
+
+***System.Object
+
+
+
+
+
+
+
 
 *** GAC - it is a folder within Windows folder. So the GAC must be a place to store code libraries so they're accessible to all applications running on the machine.
 global - applies to the entire machine
@@ -221,10 +285,6 @@ viewbag.Age = 46;
 *** DynamicObject - it works in a similar way as an ExpandoObject. It has different virtual method that need to be override. It needs for preparation method for managing members of the class.
 You can create your our logic for creating fields with additional validation.
 
-*** Boxing and unboxing
-boxing is converting value type to reference type.
-unboxing is oposite operation.
-Boxing and UnBoxing are computationally expensive processes.
 
 *** Generics
 System.Collections.ArrayList array = new System.Collections.ArrayList();
@@ -237,14 +297,6 @@ It is possible to have a generic method in not generic class.
 
 *** Extension method - it is a specific method to extend one class that can be declared in another file and second class.Method should be static.
 Example public static void ExtMethod(this Class1 s, int methodparam1,string methodparam2)
-
-*** Exception handling
-try, catch, finally. We should handle exceptions from the high level to the low. FileNotFoundException then Exception.
-For throwing an exception is keyword throw.
-In C# 6.0 there are filters of exceptions
-try{int result = x / y;}
-catch(Exception ex) when (y==0){}
-catch(Exception ex) {}
 
 *** Delegate - is a pointer to method.
 delegate int Operation(int x, int y);
@@ -271,7 +323,7 @@ Each time during execution yeald is storing current position of item, and next t
 use [NonSerialized]. It can be serialization to binary,SOAP,XML,JSON format.BinaryFormatter,SoapFormatter,XmlSerializer.
 BinaryFormatter formatter = new BinaryFormatter();   ->  formatter.Serialize(fs, person);
 
-*** string and StringBuilder - when we are changing the string type .NET creates new string in memory. StringBuilder is a dynamic string.
+
 
 *** Finalizers - GC is a very good mechanism to work with memory cleaning. But sometimes some objects can use unmanaged resourses NetWork Connections or descriptors. So, GC doesn't know how to manage such cases
 For that purpose we need to use finilizers. It is like a destructor in C++,  ~Person(). When GC is going to clean an object he will call finilizers first. Finalize method is by default in each class.
