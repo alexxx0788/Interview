@@ -18,3 +18,11 @@
 *file - kb_interview.txt
 GREAT LIST OF BOOKS FOR SITECORE DEVELOPERS
 https://sitecorejunkie.com/2015/06/22/a-list-of-books-that-every-sitecore-developer-should-read/
+
+Clarify:
+ - big memory heap
+ - allocation of big objects
+ - string allocation
+ - stringbuilder how it works inside
+ - hashcode how it works
+ - data structure
