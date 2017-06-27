@@ -1,0 +1,1 @@
+https://www.codeproject.com/Articles/703634/SOLID-architecture-principles-using-simple-Csharp
