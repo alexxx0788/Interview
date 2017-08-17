@@ -1,0 +1,6 @@
+C:\ALEXXX\Interview\INFO\SortAlgorithms\Project\Project\bin\Debug\Project.exe.config
+C:\ALEXXX\Interview\INFO\SortAlgorithms\Project\Project\bin\Debug\Project.exe
+C:\ALEXXX\Interview\INFO\SortAlgorithms\Project\Project\bin\Debug\Project.pdb
+C:\ALEXXX\Interview\INFO\SortAlgorithms\Project\Project\obj\Debug\Project.csprojResolveAssemblyReference.cache
+C:\ALEXXX\Interview\INFO\SortAlgorithms\Project\Project\obj\Debug\Project.exe
+C:\ALEXXX\Interview\INFO\SortAlgorithms\Project\Project\obj\Debug\Project.pdb
